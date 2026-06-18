@@ -1,0 +1,9 @@
+# EU jurisdiction overrides — merged on top of policy_pack.yaml.
+
+
+sanctions:
+  lists: [EU, UN, OFAC]      # EU consolidated list takes precedence in-region
+country_risk:
+  high: [IR, KP, SY, CU, RU, BY]
+privacy:
+  redact_pii_in_reports: true   # GDPR posture: redact PII in human-readable reports
