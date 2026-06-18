@@ -1,0 +1,24 @@
+{
+  "commercial_invoice": {
+    "invoice_number": "SYNTH-INV-0000",
+    "total_amount": "0.00",
+    "currency": "USD",
+    "goods_description": "UNKNOWN (synthetic placeholder)"
+  },
+  "bill_of_lading": {
+    "bl_number": "SYNTH-BL-0000",
+    "shipped_on_board_date": null,
+    "goods_description": "UNKNOWN (synthetic placeholder)"
+  },
+  "packing_list": {
+    "number_of_packages": "0",
+    "goods_description": "UNKNOWN (synthetic placeholder)"
+  },
+  "certificate_of_origin": {
+    "country_of_origin": "UNKNOWN",
+    "goods_description": "UNKNOWN (synthetic placeholder)"
+  },
+  "inspection_certificate": {
+    "result": "UNKNOWN (synthetic placeholder)"
+  }
+}
