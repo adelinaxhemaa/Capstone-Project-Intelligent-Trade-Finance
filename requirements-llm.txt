@@ -1,0 +1,5 @@
+# Optional LLM features (only needed when USE_LLM=true).
+# Install with: pip install -r requirements-llm.txt
+langchain>=0.3
+langchain-openai>=0.2
+# Swap for langchain-anthropic if you set LLM_PROVIDER=anthropic

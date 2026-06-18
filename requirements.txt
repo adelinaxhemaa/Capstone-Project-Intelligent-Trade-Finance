@@ -1,0 +1,19 @@
+# Core backend dependencies (always needed).
+# Optional LLM features: pip install -r requirements-llm.txt
+langgraph>=0.2
+pymupdf>=1.24
+pytesseract>=0.3.10
+Pillow>=10.0
+pydantic>=2.5
+streamlit>=1.30
+plotly>=5.20
+pandas>=2.0
+pyyaml>=6.0
+rapidfuzz>=3.0
+python-dateutil>=2.8
+jinja2>=3.1
+python-dotenv>=1.0
+pytest>=8.0
+# Optional programmatic API (not needed for the Streamlit demo):
+fastapi>=0.110
+uvicorn>=0.29
