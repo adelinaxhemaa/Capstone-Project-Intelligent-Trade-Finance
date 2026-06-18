@@ -1,0 +1,1 @@
+"""Pure rule logic (no I/O): UCP 600 checks, matching rules, sanctions screening."""
