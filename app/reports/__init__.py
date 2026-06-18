@@ -1,0 +1,1 @@
+"""Human-readable report rendering (Jinja2 templates)."""

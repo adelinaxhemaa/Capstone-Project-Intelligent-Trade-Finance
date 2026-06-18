@@ -1,0 +1,7 @@
+# US jurisdiction overrides — merged on top of policy_pack.yaml.
+
+sanctions:
+  lists: [OFAC, UN, EU]      # OFAC primary in-region
+  match_threshold: 88        # slightly stricter screening
+country_risk:
+  high: [IR, KP, SY, CU, RU]

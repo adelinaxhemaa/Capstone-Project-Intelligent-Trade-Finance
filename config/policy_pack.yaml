@@ -1,0 +1,46 @@
+# Base policy pack — the single place to tune behavior without editing code.
+# Regional overrides in config/regional/ are merged on top of this, and a
+# per-bundle sanctions_policy.yaml is merged on top of that.
+
+# --- Amount / tolerance ---
+amount_tolerance_pct: 0.1         # allowed +/- variance: invoice vs L/C amount
+
+# --- UCP 600 timing ---
+presentation_period_days: 21       # days to present after shipment (UCP 600 Art. 14c)
+
+# --- Extraction / OCR ---
+low_confidence_cutoff: 0.75        # below this, a field is flagged for manual review / LLM fallback
+ocr_quality_cutoff: 0.60           # below this text-quality score, route the page to OCR
+ocr_field_confidence_ceiling: 0.70 # OCR-sourced fields are capped below the cutoff (scanned => verify)
+
+# --- Matching ---
+fuzzy:
+  name_match_threshold: 85         # rapidfuzz score (0-100) to treat names as the same party
+
+# --- Approvals ---
+approval_threshold_amount: 1000000 # above this, escalate to manual approval
+
+# --- Sanctions / risk ---
+sanctions:
+  lists: [OFAC, EU, UN]
+  match_threshold: 90              # fuzzy score to treat a name as a sanctions hit
+country_risk:
+  high: [IR, KP, SY, CU, RU]
+  medium: [VE, MM, BY]
+  default: low
+
+
+dual_use_keywords: [centrifuge, maraging steel, uranium, gyroscope, night vision]
+
+
+privacy:
+  redact_pii_in_reports: false
+
+
+severity_defaults:
+  ucp_violation: major
+  cross_doc_mismatch: major
+  tolerance_breach: minor
+  sanctions_hit: critical
+  low_confidence: minor
+  format: minor

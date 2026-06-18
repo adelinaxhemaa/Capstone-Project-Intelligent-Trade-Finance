@@ -1,0 +1,41 @@
+# Trade Finance Examination Report — {{ run_id }}
+
+## Decision: {{ action | upper }}
+
+{{ rationale }}
+{% if narrative %}
+
+**Summary:** {{ narrative }}
+{% endif %}
+
+## Metrics
+- Documents processed: {{ metrics.documents_processed }}
+- Fields extracted: {{ metrics.fields_extracted }}
+- Low-confidence fields: {{ metrics.low_confidence_count }}
+- Discrepancies: {{ metrics.discrepancy_count }}{% if metrics.discrepancy_rate is not none %} (rate {{ metrics.discrepancy_rate }}){% endif %}
+
+- Sanctions hits: {{ metrics.sanctions_hit_count }}
+{% if metrics.throughput is not none %}- Throughput: {{ metrics.throughput }} docs/sec
+{% endif %}
+
+## Sanctions screening
+{% if sanctions.hits and sanctions.hits | length > 0 %}
+{% for h in sanctions.hits %}
+- **HIT** {{ h.entity.name }} ~ {{ h.matched_name }} ({{ h.list_source }}, score {{ h.score }})
+{% endfor %}
+{% else %}
+No active sanctions hits.
+{% endif %}
+
+## Discrepancies ({{ findings | length }})
+{% if findings | length == 0 %}
+None.
+{% else %}
+| Severity | Type | Title |
+|---|---|---|
+{% for f in findings %}
+| {{ f.severity | upper }} | {{ f.type }} | {{ f.title }} |
+{% endfor %}
+{% endif %}
+
+_This report is generated from the run artifacts. The decision is rule-based and deterministic; any summary prose is generated only when the LLM is enabled and does not affect the decision._

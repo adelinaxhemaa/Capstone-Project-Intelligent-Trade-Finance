@@ -1,0 +1,22 @@
+# Discrepancies & Decision — {{ run_id }}
+
+**Decision:** {{ action | upper }}
+**Rationale:** {{ rationale }}
+{% if route and route != "continue" %}**Routing:** {{ route }}
+{% endif %}
+{% if narrative %}
+> {{ narrative }}
+{% endif %}
+
+## Findings ({{ findings | length }})
+{% if findings | length == 0 %}
+_No discrepancies found._
+{% else %}
+{% for f in findings %}
+- **[{{ f.severity | upper }}]** {{ f.title }} — {{ f.description }}
+{% if f.recommendation %}  - _Recommendation:_ {{ f.recommendation }}
+{% endif %}
+{% if f.open_questions and f.open_questions | length > 0 %}  - _Open questions:_ {{ f.open_questions | join("; ") }}
+{% endif %}
+{% endfor %}
+{% endif %}
