@@ -1,0 +1,49 @@
+# Audit Log — {{ run_id }}
+
+## Credit
+- L/C number: {{ lc_terms.lc_number or "n/a" }}
+- Amount: {{ lc_terms.currency or "" }} {{ lc_terms.amount or "n/a" }}
+- Expiry: {{ lc_terms.expiry_date or "n/a" }}
+- Applicable rules: {{ applied_rules | join(", ") or "n/a" }}
+
+## Documents examined
+{% for d in documents %}
+- {{ d.source_file }} — {{ d.document_type }} ({{ d.page_count }} page(s))
+{% endfor %}
+
+## Execution trace
+{% for line in trace_lines %}
+{{ loop.index }}. {{ line }}
+{% endfor %}
+
+## Decision chain
+- **Action:** {{ decision.action | upper }}
+- **Rationale:** {{ decision.rationale }}
+- **Route:** {{ decision.route }}
+- **Severity counts:** critical={{ decision.severity_counts.critical }}, major={{ decision.severity_counts.major }}, minor={{ decision.severity_counts.minor }}, info={{ decision.severity_counts.info }}
+{% if decision.drivers and decision.drivers | length > 0 %}
+- **Decision drivers:**
+{% for d in decision.drivers %}
+  - [{{ d.severity | upper }}] {{ d.title }} ({{ d.type }}, id={{ d.id }})
+{% endfor %}
+{% endif %}
+
+## Findings with evidence ({{ findings | length }})
+{% if findings | length == 0 %}
+_No findings._
+{% else %}
+{% for f in findings %}
+### {{ loop.index }}. [{{ f.severity | upper }}] {{ f.title }}
+- Type: {{ f.type }} | Source: {{ f.source_agent }} | id: {{ f.id }}
+- {{ f.description }}
+{% if f.evidence and f.evidence | length > 0 %}
+- Evidence:
+{% for e in f.evidence %}
+  - {{ e.source_file }}{% if e.document_type %} ({{ e.document_type }}){% endif %}{% if e.bbox %} @ page {{ e.bbox.page }} [{{ e.bbox.x0 }},{{ e.bbox.y0 }},{{ e.bbox.x1 }},{{ e.bbox.y1 }}]{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+_Deterministic, rule-based examination. This log is reproducible from the run artifacts._
