@@ -1,0 +1,1 @@
+"""Reusable capabilities exposed to agents/rules (the agent-tools pattern)."""
